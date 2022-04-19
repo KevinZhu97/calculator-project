@@ -48,15 +48,17 @@ const allOperations = document.querySelectorAll('.operator');
 allOperations.forEach((operator) => {
     operator.addEventListener('click', () => {
         if (firstValue === 0) {
-            firstValue = currentOperation.innerHTML;
+            firstValue = parseInt(currentOperation.innerHTML);
             console.log(firstValue);
             symbol = operator.id;
             console.log(symbol);
             displayValue = 0;
         } else if (firstValue > 0) {
-            secondValue = currentOperation.innerHTML;
+            secondValue = parseInt(currentOperation.innerHTML);
+            console.log(symbol);
             currentOperation.innerHTML = operate(window[symbol], firstValue, secondValue);
-            firstValue = currentOperation.innerHTML;
+            symbol = operator.id;
+            firstValue = parseInt(currentOperation.innerHTML);
             displayValue = 0;
         };
     });
@@ -74,8 +76,22 @@ equals.addEventListener('click', function() {
     firstValue = (operate(window[symbol], firstValue, secondValue));
 });
 
+// add clear function
+const clear = document.querySelector('#clear');
+clear.addEventListener('click', () => {
+    firstValue = 0;
+    secondValue = '';
+    symbol = '';
+    currentOperation.innerHTML = 0;
+});
 
-
+// add delete function, get a hold of the display and edit it
+const erase = document.querySelector('#delete');
+erase.addEventListener('click', () => {
+    if (currentOperation.innerHTML.length > 1) {
+        currentOperation.innerHTML = currentOperation.innerHTML.slice(0, -1);
+    };
+});
 
 
 
